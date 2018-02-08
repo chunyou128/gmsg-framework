@@ -1,8 +1,13 @@
 syntax = "proto3";
 
 package example;
+
+enum MSGID {
+	Logon_Request = 0;
+	CreateRoom_Request = 1;
+}
  
-message MsgTest1 {
+message RequestLogon {
   string name = 1;
   int32 id = 2; 
   string email = 3;

@@ -2,24 +2,24 @@ package main
 
 import (
 	"errors"
-	"github.com/golang/protobuf/proto"
 	"reflect"
+
+	"github.com/golang/protobuf/proto"
 )
 
-type MessageHandler func(msgid uint16, msg interface{})
+type MsgHandler func(msgid uint16, msg interface{})
 
 type MessageInfo struct {
 	msgType    reflect.Type
-	msgHandler MessageHandler
+	msgHandler MsgHandler
 }
 
 var (
-	msg_map = make(map[uint16]MessageInfo)
+	msg_map = make(map[uint16]*MessageInfo)
 )
 
-func RegisterMessage(msgid uint16, msg interface{}, handler MessageHandler) {
-
-	var info MessageInfo
+func RegisterMessage(msgid uint16, msg interface{}, handler MsgHandler) {
+	info := new(MessageInfo)
 	info.msgType = reflect.TypeOf(msg.(proto.Message))
 	info.msgHandler = handler
 
